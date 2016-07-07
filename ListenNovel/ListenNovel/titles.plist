@@ -4,6 +4,12 @@
 <array>
 	<dict>
 		<key>title</key>
+		<string>博集天卷</string>
+		<key>listurl</key>
+		<string>http://mobile.ximalaya.com/mobile/discovery/v1/category/album?calcDimension=hot&amp;categoryId=3&amp;device=android&amp;pageSize=20&amp;status=0&amp;tagName=%E5%8D%9A%E9%9B%86%E5%A4%A9%E5%8D%B7</string>
+	</dict>
+	<dict>
+		<key>title</key>
 		<string>悬疑</string>
 		<key>listurl</key>
 		<string>http://mobile.ximalaya.com/mobile/discovery/v1/category/album?calcDimension=hot&amp;categoryId=3&amp;device=android&amp;pageSize=20&amp;status=0&amp;tagName=%E6%82%AC%E7%96%91</string>
@@ -61,12 +67,6 @@
 		<string>社科</string>
 		<key>listurl</key>
 		<string>http://mobile.ximalaya.com/mobile/discovery/v1/category/album?calcDimension=hot&amp;categoryId=3&amp;device=android&amp;pageSize=20&amp;status=0&amp;tagName=%E7%A4%BE%E7%A7%91</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>博集天卷</string>
-		<key>listurl</key>
-		<string>http://mobile.ximalaya.com/mobile/discovery/v1/category/album?calcDimension=hot&amp;categoryId=3&amp;device=android&amp;pageSize=20&amp;status=0&amp;tagName=%E5%8D%9A%E9%9B%86%E5%A4%A9%E5%8D%B7</string>
 	</dict>
 	<dict>
 		<key>title</key>

@@ -15,7 +15,7 @@
 #import "XCDataTableViewCell.h"
 
 #import "XCPlayListTableViewController.h"
-#define URL @"http://mobile.ximalaya.com/mobile/discovery/v1/category/album?calcDimension=hot&categoryId=3&device=android&pageSize=20&status=0&tagName=%E6%82%AC%E7%96%91"
+#define URL @"http://mobile.ximalaya.com/mobile/discovery/v1/category/album?calcDimension=hot&categoryId=3&device=android&pageSize=20&status=0&tagName=%E5%8D%9A%E9%9B%86%E5%A4%A9%E5%8D%B7"
 @interface XCDataTableViewController ()
 @property (nonatomic,strong) AFHTTPSessionManager *manager;
 @property(nonatomic) NSInteger pageId;

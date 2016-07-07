@@ -13,7 +13,7 @@
 #import "XCListTableViewCell.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
-
+#import "XCPlayerViewController.h"
 
 @interface XCPlayListTableViewController ()
 @property(nonatomic)NSInteger pageId;
@@ -61,7 +61,7 @@
     [super viewDidLoad];
     _pageId=1;
     if (!_listArr) {
-        _listArr=[NSMutableArray array];
+        _listArr = [NSMutableArray array];
     }
     self.navigationItem.title=self.name;
     [self getRequest];
@@ -73,10 +73,15 @@
     
     self.tableView.rowHeight=100;
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame=CGRectMake(0, 0, 40, 40);
-    [btn setImage:[UIImage imageNamed:@"MusicPlayer_后退"] forState:UIControlStateNormal];
+    btn.frame=CGRectMake(0, 0, 30, 30);
+    [btn setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(backPlay:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *itemBtn=[[UIBarButtonItem alloc]initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem=itemBtn;
+}
+
+-(void)backPlay:(UIButton *)sender{
+    [self presentViewController:[XCPlayerViewController audioPlayerController] animated:YES completion:nil];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -211,8 +216,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    XCPlayerModel *model=self.listArr[indexPath.row];
-    NSLog(@"%@",model.playerUrl);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    XCPlayerViewController *audio=[XCPlayerViewController audioPlayerController];
+    [audio initWithArray:self.listArr index:indexPath.row];
+    [self presentViewController:audio animated:YES completion:nil];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
