@@ -9,6 +9,7 @@
 #import "XCPlayerViewController.h"
 #import "NSString+time.h"
 #import "XCPlayerViewController+methods.h"
+#import "CBAutoScrollLabel.h"
 
 @interface XCPlayerViewController ()
 {
@@ -26,11 +27,11 @@
 
 @property (weak, nonatomic) IBOutlet UISlider *paceSlider;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel; // 歌名Label
-@property (weak, nonatomic) IBOutlet UILabel *singerLabel; // 歌手Label
+
+@property (weak, nonatomic) IBOutlet CBAutoScrollLabel *titleView;
+
 @property (weak, nonatomic) IBOutlet UILabel *playingTime; // 当前播放时间Label
 @property (weak, nonatomic) IBOutlet UILabel *maxTime; // 总时间Label
-@property (weak, nonatomic) IBOutlet UIButton *modeButton; // 播放模式按钮
 @property (nonatomic, strong) AVPlayer *player;
 @end
 static XCPlayerViewController *audioVC;
@@ -106,7 +107,14 @@ static XCPlayerViewController *audioVC;
 }
 
 - (void)updateUIDataWith:(XCPlayerModel *)model{
-    self.titleLabel.text = model.playerTitle;
+    self.titleView.text = model.playerTitle;
+    self.titleView.labelSpacing=30;
+    self.titleView.pauseInterval=1.7;
+    self.titleView.scrollSpeed=30;
+    self.titleView.textAlignment=NSTextAlignmentCenter;
+    self.titleView.fadeLength=12.f;
+    self.titleView.scrollDirection=CBAutoScrollDirectionLeft;
+    [self.titleView observeApplicationNotifications];
 //    self.singerLabel.text = model.singer;
     [self setImageWith:model];
 }
@@ -227,31 +235,6 @@ static XCPlayerViewController *audioVC;
         _index = _modelArray.count -1;
     }
 }
-- (IBAction)clickPlayerMode:(id)sender {
-    switch (_playerMode) {
-        case AudioPlayerModeOrderPlay:{
-            _playerMode = AudioPlayerModeRandomPlay;
-            [_modeButton setImage:[UIImage imageNamed:@"MusicPlayer_随机播放"] forState:UIControlStateNormal];
-            [self progressHUDWith:@"随机播放"];
-            _randomArray = [_modelArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
-                return arc4random() % _modelArray.count;
-            }];
-        }break;
-        case AudioPlayerModeRandomPlay:
-            _playerMode = AudioPlayerModeSinglePlay;
-            [_modeButton setImage:[UIImage imageNamed:@"MusicPlayer_单曲循环"] forState:UIControlStateNormal];
-            [self progressHUDWith:@"单曲循环"];
-            break;
-        case AudioPlayerModeSinglePlay:
-            _playerMode = AudioPlayerModeOrderPlay;
-            [_modeButton setImage:[UIImage imageNamed:@"MusicPlayer_顺序播放"] forState:UIControlStateNormal];
-            [self progressHUDWith:@"顺序播放"];
-            break;
-        default:
-            break;
-    }
-
-}
 - (void)play{
     isPlaying = YES;
     [self.player play];
@@ -293,7 +276,5 @@ static XCPlayerViewController *audioVC;
     [musicInfo setObject:[NSNumber numberWithDouble:currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:musicInfo];
 }
-
-
 
 @end

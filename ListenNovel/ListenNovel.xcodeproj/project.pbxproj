@@ -58,6 +58,7 @@
 		4FF6F8881D251D2600CECCF7 /* XCMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FF6F8861D251D2600CECCF7 /* XCMenuTableViewCell.xib */; };
 		4FF6F88B1D25217600CECCF7 /* XCMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF6F88A1D25217600CECCF7 /* XCMenuModel.m */; };
 		4FFA05631D2E70C700247E4A /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFA05621D2E70C700247E4A /* right.png */; };
+		4FFA05731D2E82E300247E4A /* CBAutoScrollLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFA05721D2E82E300247E4A /* CBAutoScrollLabel.m */; };
 		CC265D451D23B81B00A24309 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC265D441D23B81B00A24309 /* main.m */; };
 		CC265D481D23B81B00A24309 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC265D471D23B81B00A24309 /* AppDelegate.m */; };
 		CC265D4B1D23B81B00A24309 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC265D4A1D23B81B00A24309 /* ViewController.m */; };
@@ -170,6 +171,8 @@
 		4FF6F8891D25217600CECCF7 /* XCMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCMenuModel.h; sourceTree = "<group>"; };
 		4FF6F88A1D25217600CECCF7 /* XCMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCMenuModel.m; sourceTree = "<group>"; };
 		4FFA05621D2E70C700247E4A /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
+		4FFA05711D2E82E300247E4A /* CBAutoScrollLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAutoScrollLabel.h; sourceTree = "<group>"; };
+		4FFA05721D2E82E300247E4A /* CBAutoScrollLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAutoScrollLabel.m; sourceTree = "<group>"; };
 		5033B5193602C7D9AA491BEF /* Pods-ListenNovelUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenNovelUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ListenNovelUITests/Pods-ListenNovelUITests.release.xcconfig"; sourceTree = "<group>"; };
 		52B98F3428D5D479B4DD3C58 /* Pods-ListenNovel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenNovel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListenNovel/Pods-ListenNovel.debug.xcconfig"; sourceTree = "<group>"; };
 		82F5937588E4B1B930F0B97D /* Pods-ListenNovelTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenNovelTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ListenNovelTests/Pods-ListenNovelTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -261,6 +264,21 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		4F8B830A1D2F5B5B0053F24E /* 播放器 */ = {
+			isa = PBXGroup;
+			children = (
+				4FD56ED51D2DEC39000A5C28 /* AudioPlayer.pch */,
+				4FB919041D2CF0DF0026BB19 /* XCPlayerViewController.h */,
+				4FB919051D2CF0DF0026BB19 /* XCPlayerViewController.m */,
+				4FB919061D2CF0DF0026BB19 /* XCPlayerViewController.xib */,
+				4FD56ECF1D2DE65A000A5C28 /* XCPlayerViewController+methods.h */,
+				4FD56ED01D2DE65A000A5C28 /* XCPlayerViewController+methods.m */,
+				4FD56ED21D2DE80D000A5C28 /* XCRotatingView.h */,
+				4FD56ED31D2DE80D000A5C28 /* XCRotatingView.m */,
+			);
+			name = "播放器";
+			sourceTree = "<group>";
+		};
 		4F9EC6011D27C78400A31855 /* 数据Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,15 +336,9 @@
 		4FF3CD251D2B40860043DC87 /* 播放器 */ = {
 			isa = PBXGroup;
 			children = (
+				4FFA05701D2E82CF00247E4A /* 标题滚动 */,
 				4FD56ED61D2DECE0000A5C28 /* Tools */,
-				4FD56ED51D2DEC39000A5C28 /* AudioPlayer.pch */,
-				4FB919041D2CF0DF0026BB19 /* XCPlayerViewController.h */,
-				4FB919051D2CF0DF0026BB19 /* XCPlayerViewController.m */,
-				4FB919061D2CF0DF0026BB19 /* XCPlayerViewController.xib */,
-				4FD56ECF1D2DE65A000A5C28 /* XCPlayerViewController+methods.h */,
-				4FD56ED01D2DE65A000A5C28 /* XCPlayerViewController+methods.m */,
-				4FD56ED21D2DE80D000A5C28 /* XCRotatingView.h */,
-				4FD56ED31D2DE80D000A5C28 /* XCRotatingView.m */,
+				4F8B830A1D2F5B5B0053F24E /* 播放器 */,
 			);
 			name = "播放器";
 			sourceTree = "<group>";
@@ -400,6 +412,15 @@
 				4FF6F8861D251D2600CECCF7 /* XCMenuTableViewCell.xib */,
 			);
 			name = "标题Cell";
+			sourceTree = "<group>";
+		};
+		4FFA05701D2E82CF00247E4A /* 标题滚动 */ = {
+			isa = PBXGroup;
+			children = (
+				4FFA05711D2E82E300247E4A /* CBAutoScrollLabel.h */,
+				4FFA05721D2E82E300247E4A /* CBAutoScrollLabel.m */,
+			);
+			name = "标题滚动";
 			sourceTree = "<group>";
 		};
 		880C8712065708A12DC46B42 /* Pods */ = {
@@ -826,6 +847,7 @@
 				4FF6F8761D25109400CECCF7 /* RESideMenu.m in Sources */,
 				4FF6F8751D25109400CECCF7 /* RECommonFunctions.m in Sources */,
 				4FF6F8771D25109400CECCF7 /* UIViewController+RESideMenu.m in Sources */,
+				4FFA05731D2E82E300247E4A /* CBAutoScrollLabel.m in Sources */,
 				4FD56EDC1D2DECE0000A5C28 /* UIImage+ImageEffects.m in Sources */,
 				4FB918DB1D2CAAE00026BB19 /* XCListHeadView.m in Sources */,
 				4FD56ED11D2DE65A000A5C28 /* XCPlayerViewController+methods.m in Sources */,
@@ -969,6 +991,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaochao.ListenNovel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -981,6 +1004,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaochao.ListenNovel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
