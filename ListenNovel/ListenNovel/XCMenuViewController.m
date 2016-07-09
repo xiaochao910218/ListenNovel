@@ -11,6 +11,9 @@
 #import "XCDataTableViewController.h"
 #import "XCMenuModel.h"
 #import "XCMenuTableViewCell.h"
+#import "Masonry.h"
+
+#define WIDTH self.view.frame.size.width
 
 
 @interface XCMenuViewController ()
@@ -34,12 +37,12 @@ static NSString *titleIndentifier =@"titleIndentifier";
         _titleArr=muArr;
     }
     return _titleArr;
-}
+   }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView = ({
-        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, self.view.frame.size.height-60) style:UITableViewStylePlain];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, WIDTH, self.view.frame.size.height-100) style:UITableViewStylePlain];
         tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -51,7 +54,20 @@ static NSString *titleIndentifier =@"titleIndentifier";
         tableView.scrollsToTop = NO;
         tableView;
     });
+    UIView *titleView=[[UIView alloc]initWithFrame:CGRectMake(0, 20, WIDTH, 44)];
+    UILabel *lab=[UILabel new];
+    [titleView addSubview:lab];
+    lab.text=@"列表";
+    lab.textAlignment=NSTextAlignmentCenter;
+    [lab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(110);
+        make.height.equalTo(titleView);
+    }];
     
+    lab.textColor=[UIColor cyanColor];
+//    lab.textAlignment=NSTextAlignmentCenter;
+    lab.font=[UIFont systemFontOfSize:18];
+    self.tableView.tableHeaderView=titleView;
     [self.view addSubview:self.tableView];
     UINib *nib=[UINib nibWithNibName:NSStringFromClass([XCMenuTableViewCell class]) bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:titleIndentifier];

@@ -12,12 +12,16 @@
 
 @interface XCMenuTableViewCell()
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+
 @end
 
 @implementation XCMenuTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    _img.layer.cornerRadius=18;
+    _img.layer.masksToBounds=YES;
     // Initialization code
 }
 -(void)setTitleModel:(XCMenuModel *)titleModel{

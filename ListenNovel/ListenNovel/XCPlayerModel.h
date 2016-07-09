@@ -14,7 +14,9 @@
 @property(nonatomic,strong) NSString *playerUrl;
 @property(nonatomic,strong) NSString *playerDuration;
 @property(nonatomic,strong) NSString *playersmaImg;
+@property(nonatomic,strong) NSString *playerlarImg;
 @property(nonatomic,strong) NSString *playercount;
+
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

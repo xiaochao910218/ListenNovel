@@ -24,7 +24,7 @@
 
 -(void)setPlayerModel:(XCPlayerModel *)playerModel{
     _playerModel=playerModel;
-    [_logoImageView sd_setImageWithURL:[NSURL URLWithString:playerModel.playersmaImg] placeholderImage:[UIImage imageNamed:@"booklogo"]];
+    [_logoImageView sd_setImageWithURL:[NSURL URLWithString:playerModel.playersmaImg] placeholderImage:[UIImage imageNamed:@"yushe"]];
     _logoImageView.layer.cornerRadius=25;
     _logoImageView.layer.masksToBounds=YES;
     _titleLable.text=playerModel.playerTitle;

@@ -123,12 +123,10 @@ static XCPlayerViewController *audioVC;
     AVPlayerItem *item = (AVPlayerItem *)object;
     if ([keyPath isEqualToString:@"status"]) {
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
-            NSLog(@"AVPlayerStatusReadyToPlay");
             CMTime duration = item.duration;// 获取视频总长度
             [self setMaxDuratuin:CMTimeGetSeconds(duration)];
             [self play];
         }else if([playerItem status] == AVPlayerStatusFailed) {
-            NSLog(@"AVPlayerStatusFailed");
             [self stop];
         }
     }
@@ -161,7 +159,6 @@ static XCPlayerViewController *audioVC;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 -(void)playbackFinished:(NSNotification *)notification{
-    NSLog(@"视频播放完成.");
     if (_playerMode == AudioPlayerModeSinglePlay) {
         playerItem = [notification object];
         [playerItem seekToTime:kCMTimeZero];

@@ -29,5 +29,7 @@ static NSString * const XCPlayerTitle=@"title";
 static NSString * const XCPlayerDataUrl=@"playUrl64";
 static NSString * const XCPlayerDuration=@"duration";
 static NSString * const XCPlayercoverSmall=@"coverSmall";
+static NSString * const XCPlayercoverLarge=@"coverLarge";
 static NSString * const XCPlayerplaytimes=@"playtimes";
+static NSString * const XCPlayerisAsc=@"isAsc";
 #endif /* XCCommon_h */

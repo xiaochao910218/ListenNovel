@@ -14,16 +14,18 @@
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
 #import "XCPlayerViewController.h"
+#define WIDTH self.view.bounds.size.width
 
 @interface XCPlayListTableViewController ()
 @property(nonatomic)NSInteger pageId;
 @property(nonatomic,strong) AFHTTPSessionManager *manager;
 @property(nonatomic,strong)NSMutableArray *listArr;
 @property(nonatomic,strong) UIButton *footerBtn;
+@property(nonatomic)        BOOL px;
 @end
 
 @implementation XCPlayListTableViewController
-
+static NSString *isAsc;
 -(AFHTTPSessionManager *)manager{
     if (!_manager) {
         _manager=[AFHTTPSessionManager manager];
@@ -35,7 +37,7 @@
 
 -(void)getRequest{
     __weak XCPlayListTableViewController *vc=self;
-    _url=[NSString stringWithFormat:@"http://mobile.ximalaya.com/mobile/v1/album/track?albumId=%@&pageId=%ld&isAsc=true",self.ablumn,_pageId];
+    _url=[NSString stringWithFormat:@"http://mobile.ximalaya.com/mobile/v1/album/track?albumId=%@&pageId=%ld&isAsc=%@",self.ablumn,_pageId,isAsc];
     
     NSDictionary *parameters=@{@"page":@(_pageId)};
        [self.manager GET:_url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -60,6 +62,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _pageId=1;
+    isAsc=@"true";
     if (!_listArr) {
         _listArr = [NSMutableArray array];
     }
@@ -67,9 +70,7 @@
     [self getRequest];
     UINib *nib =[UINib nibWithNibName:NSStringFromClass([XCListTableViewCell class]) bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"playercell"];
-    UIImageView *image=[[UIImageView alloc]initWithFrame:self.tableView.frame];
-    image.image=[UIImage imageNamed:@"Stars"];
-    self.tableView.backgroundView=image;
+
     
     self.tableView.rowHeight=100;
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -99,7 +100,20 @@
     UILabel *countLab=[UILabel new];
     UILabel *update=[UILabel new];
     UILabel *updateLab=[UILabel new];
+    UILabel *ascLab=[UILabel new];
+    ascLab.text=@"排序:";
+    ascLab.font=[UIFont systemFontOfSize:13];
+    ascLab.textColor=[UIColor blueColor];
+    ascLab.textAlignment=NSTextAlignmentRight;
     
+    UIButton *ascBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    if ([isAsc isEqualToString:@"true"]) {
+        [ascBtn setBackgroundImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
+    }else if([isAsc isEqualToString:@"false"]){
+        [ascBtn setBackgroundImage:[UIImage imageNamed:@"up"] forState:UIControlStateNormal];
+    }
+    
+    [ascBtn addTarget:self action:@selector(changeIsAsc:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:image];
     [headView addSubview:titleLab];
     [headView addSubview:auth];
@@ -108,6 +122,8 @@
     [headView addSubview:countLab];
     [headView addSubview:update];
     [headView addSubview:updateLab];
+    [headView addSubview:ascBtn];
+    [headView addSubview:ascLab];
     
     CGFloat count1=[self.xccount integerValue];
     NSString *times;
@@ -182,13 +198,35 @@
     [countLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(count);
         make.left.equalTo(count.mas_right).with.offset(2);
-        make.width.mas_lessThanOrEqualTo(200);
+        make.width.mas_equalTo(70);
         make.height.mas_equalTo(21);
+    }];
+    
+    [ascBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-30);
+        make.centerY.equalTo(countLab);
+        make.size.mas_equalTo(CGSizeMake(26, 16));
+    }];
+    [ascLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(ascBtn.mas_left).with.offset(0);
+        
+        make.centerY.equalTo(countLab);
+        make.width.height.equalTo(update);
     }];
     return headView;
 }
 
-
+-(void)changeIsAsc:(UIButton *)sender{
+    [self.listArr removeAllObjects];
+    _px=!_px;
+    if (_px==YES) {
+        isAsc=@"false";
+    }else{
+    isAsc=@"true";
+    }
+    [self getRequest];
+    
+}
 
 #pragma mark - Table view data source
 
@@ -204,7 +242,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XCListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"playercell" forIndexPath:indexPath];
-    cell.backgroundColor=[UIColor colorWithRed:0.3 green:0.3 blue:0.6 alpha:0.5];
+    cell.backgroundColor=[UIColor colorWithRed:0.5 green:0.4 blue:0.6 alpha:0.4];
     XCPlayerModel *model=self.listArr[indexPath.row];
     cell.playerModel=model;
     

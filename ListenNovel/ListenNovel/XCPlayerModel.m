@@ -16,6 +16,7 @@
         _playerUrl=dict[XCPlayerDataUrl];
         _playerDuration=dict[XCPlayerDuration];
         _playersmaImg=dict[XCPlayercoverSmall];
+        _playerlarImg=dict[XCPlayercoverLarge];
         _playercount=dict[XCPlayerplaytimes];
     }
     return self;
