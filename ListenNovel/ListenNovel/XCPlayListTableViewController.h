@@ -16,4 +16,5 @@
 @property(nonatomic,strong)NSString *nickName;
 @property(nonatomic,strong)NSString *xccount;
 @property(nonatomic,strong)NSString *tracks;
+@property(nonatomic,strong)NSString *intro;
 @end

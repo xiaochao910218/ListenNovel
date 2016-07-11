@@ -264,6 +264,13 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		4F8B52A81D3326A6008650D3 /* 播放按钮 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "播放按钮";
+			sourceTree = "<group>";
+		};
 		4F8B830A1D2F5B5B0053F24E /* 播放器 */ = {
 			isa = PBXGroup;
 			children = (
@@ -518,6 +525,7 @@
 		CC265D771D23BAF800A24309 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4F8B52A81D3326A6008650D3 /* 播放按钮 */,
 				4FF3CD261D2B40970043DC87 /* 播放列表 */,
 				4FF3CD251D2B40860043DC87 /* 播放器 */,
 				4FF6F87F1D25169F00CECCF7 /* 数据视图 */,

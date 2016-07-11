@@ -16,6 +16,8 @@
 #import "Masonry.h"
 #import "XCPlayListTableViewController.h"
 #import <SDCycleScrollView.h>
+#import "Masonry.h"
+#import "XCPlayerViewController.h"
 
 #define URL @"http://mobile.ximalaya.com/mobile/discovery/v1/category/album?calcDimension=hot&categoryId=3&device=android&pageSize=20&status=0&tagName=%E5%8D%9A%E9%9B%86%E5%A4%A9%E5%8D%B7"
 
@@ -105,7 +107,8 @@ static NSString *xctitle=@"博集天卷";
     self.tableView.rowHeight=125;
     self.tableView.showsVerticalScrollIndicator=NO;
     self.navigationController.navigationBar.translucent=NO;
-    self.automaticallyAdjustsScrollViewInsets=NO;
+//    self.automaticallyAdjustsScrollViewInsets=NO;
+    
     self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:0.792 green:0.761 blue:0.835 alpha:0.5];
 }
 
@@ -187,6 +190,7 @@ static NSString *xctitle=@"博集天卷";
     play.nickName=dataMod.novelNickname;
     play.xccount=dataMod.novelplaysCounts;
     play.tracks=dataMod.novelTracks;
+    play.intro=dataMod.novelIntro;
     [self.navigationController pushViewController:play animated:YES];
 }
 
@@ -223,6 +227,35 @@ static NSString *xctitle=@"博集天卷";
     play.nickName=dataMod.novelNickname;
     play.xccount=dataMod.novelplaysCounts;
     play.tracks=dataMod.novelTracks;
+    play.intro=dataMod.novelIntro;
     [self.navigationController pushViewController:play animated:YES];
+    
+}
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 100)];
+    view.backgroundColor=[UIColor whiteColor];
+    view.alpha=0.8;
+    UIButton *btn =[UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setBackgroundColor:[UIColor orangeColor]];
+    [btn setTitle:@"Player" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(composeAction:) forControlEvents:UIControlEventTouchUpInside];
+    btn.layer.cornerRadius=8;
+    btn.layer.masksToBounds=YES;
+    btn.titleLabel.font=[UIFont systemFontOfSize:16];
+    [view addSubview:btn];
+    
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(view);
+        make.width.mas_equalTo(45);
+        make.height.equalTo(view);
+    }];
+    return view;
+    
+}
+-(void)composeAction:(UIButton *)sender
+{
+    [self presentViewController:[XCPlayerViewController audioPlayerController] animated:YES completion:nil];
 }
 @end

@@ -79,6 +79,7 @@ static NSString *isAsc;
     [btn addTarget:self action:@selector(backPlay:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *itemBtn=[[UIBarButtonItem alloc]initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem=itemBtn;
+    
 }
 
 -(void)backPlay:(UIButton *)sender{
@@ -86,7 +87,10 @@ static NSString *isAsc;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 120;
+    return 205;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.5;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -106,6 +110,7 @@ static NSString *isAsc;
     ascLab.textColor=[UIColor blueColor];
     ascLab.textAlignment=NSTextAlignmentRight;
     
+    
     UIButton *ascBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     if ([isAsc isEqualToString:@"true"]) {
         [ascBtn setBackgroundImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
@@ -114,6 +119,8 @@ static NSString *isAsc;
     }
     
     [ascBtn addTarget:self action:@selector(changeIsAsc:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *intro=[UILabel new];
+    UILabel *introLab=[UILabel new];
     [headView addSubview:image];
     [headView addSubview:titleLab];
     [headView addSubview:auth];
@@ -124,6 +131,8 @@ static NSString *isAsc;
     [headView addSubview:updateLab];
     [headView addSubview:ascBtn];
     [headView addSubview:ascLab];
+    [headView addSubview:intro];
+    [headView addSubview:introLab];
     
     CGFloat count1=[self.xccount integerValue];
     NSString *times;
@@ -154,6 +163,13 @@ static NSString *isAsc;
     update.textColor=[UIColor blueColor];
     update.font=[UIFont systemFontOfSize:13];
     updateLab.font=[UIFont systemFontOfSize:14];
+    intro.text=@"简介:";
+    intro.textAlignment=NSTextAlignmentCenter;
+    intro.textColor=[UIColor blueColor];
+    intro.font=[UIFont systemFontOfSize:16];
+    introLab.font=[UIFont systemFontOfSize:14];
+    introLab.numberOfLines=0;
+    introLab.text=self.intro;
     
     [image mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.mas_equalTo(8);
@@ -213,6 +229,18 @@ static NSString *isAsc;
         make.centerY.equalTo(countLab);
         make.width.height.equalTo(update);
     }];
+    [intro mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(8);
+        make.top.equalTo(image.mas_bottom).with.offset(3);
+        make.height.equalTo(update);
+        make.width.mas_equalTo(42);
+    }];
+    [introLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(intro);
+        make.left.equalTo(intro.mas_right).with.offset(3);
+        make.right.mas_equalTo(-8);
+        make.height.mas_lessThanOrEqualTo(105);
+    }];
     return headView;
 }
 
@@ -245,8 +273,6 @@ static NSString *isAsc;
     cell.backgroundColor=[UIColor colorWithRed:0.5 green:0.4 blue:0.6 alpha:0.4];
     XCPlayerModel *model=self.listArr[indexPath.row];
     cell.playerModel=model;
-    
-    
     return cell;
 }
 -(UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath{

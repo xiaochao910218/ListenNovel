@@ -18,6 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.66337346032355793" green="0.87237366397066463" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="8uT-Fe-t3t"/>
                     <navigationItem key="navigationItem" title="听声辩音" id="1pq-g7-55P">
                         <barButtonItem key="leftBarButtonItem" systemItem="bookmarks" id="XBH-lC-MxF">
                             <connections>
@@ -29,7 +30,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-856" y="535"/>
+            <point key="canvasLocation" x="-1327" y="-173"/>
         </scene>
         <!--MenuViewController-->
         <scene sceneID="5pN-yv-A28">
@@ -59,7 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kac-GN-4mN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-855.5" y="1287.5"/>
+            <point key="canvasLocation" x="-1327" y="571"/>
         </scene>
         <!--dataTableViewController-->
         <scene sceneID="8Pp-DW-OZd">
@@ -85,6 +86,7 @@
                             <outlet property="delegate" destination="Wb4-rx-1xw" id="i2A-kD-9Ji"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="列表" id="FfS-8F-wai">
                         <barButtonItem key="leftBarButtonItem" title="分类" id="Esd-rC-rfa">
                             <connections>
@@ -92,10 +94,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FoB-rr-3dY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-215" y="1298"/>
+            <point key="canvasLocation" x="-893" y="585"/>
         </scene>
         <!--Play List Table View Controller-->
         <scene sceneID="uZU-AT-sEI">
@@ -124,7 +127,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="USK-4V-f1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="171" y="1298"/>
+            <point key="canvasLocation" x="-215" y="1950"/>
         </scene>
         <!--contentViewController-->
         <scene sceneID="MyC-XB-8GS">
@@ -141,7 +144,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lax-n7-kK0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-215" y="563"/>
+            <point key="canvasLocation" x="-893" y="-173"/>
         </scene>
     </scenes>
 </document>

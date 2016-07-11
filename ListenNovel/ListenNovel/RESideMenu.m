@@ -757,7 +757,7 @@
     [self.view bringSubviewToFront:self.contentViewContainer];
 }
 
-#pragma mark -
+
 #pragma mark View Controller Rotation handler
 
 - (BOOL)shouldAutorotate
