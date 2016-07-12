@@ -280,9 +280,14 @@ static NSString *xctitle=@"博集天卷";
     [self.navigationController pushViewController:play animated:YES];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 45;
+}
+
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 100)];
-    view.backgroundColor=[UIColor colorWithRed:0.5 green:0.4 blue:0.6 alpha:0.4];
+    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 45)];
+//    view.backgroundColor=[UIColor colorWithRed:0.5 green:0.4 blue:0.6 alpha:0.4];
+    view.backgroundColor=[UIColor whiteColor];
     UIButton *btn =[UIButton buttonWithType:UIButtonTypeCustom];
 //    [btn setBackgroundColor:[UIColor orangeColor]];
     [btn setTitle:@"Player" forState:UIControlStateNormal];
@@ -294,10 +299,9 @@ static NSString *xctitle=@"博集天卷";
     [view addSubview:btn];
     
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(view);
-        make.right.mas_equalTo(-10);
+        make.centerY.centerX.equalTo(view);
         make.width.mas_equalTo(45);
-        make.height.equalTo(view);
+        make.height.mas_equalTo(40);
     }];
     return view;
     

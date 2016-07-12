@@ -16,6 +16,7 @@
 @property(nonatomic,strong) NSString *playersmaImg;
 @property(nonatomic,strong) NSString *playerlarImg;
 @property(nonatomic,strong) NSString *playercount;
+@property(nonatomic,strong) NSString *playercreatedAt;
 
 
 

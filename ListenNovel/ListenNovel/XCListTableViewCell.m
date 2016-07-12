@@ -13,6 +13,7 @@
 @interface XCListTableViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
+@property (weak, nonatomic) IBOutlet UILabel *timelable;
 
 @property (weak, nonatomic) IBOutlet UILabel *playCount;
 
@@ -39,9 +40,9 @@
         _playCount.hidden=YES;
     }
     _playCount.text=times;
-    
     int longTime=[playerModel.playerDuration intValue];
-    _durationLable.text=[NSString stringWithFormat:@"%d:%d",longTime/60,longTime%60];
+    _durationLable.text=[NSString stringWithFormat:@"%02d:%02d",longTime/60,longTime%60];
+    _timelable.text=playerModel.playercreatedAt;
 }
 
 - (void)awakeFromNib {

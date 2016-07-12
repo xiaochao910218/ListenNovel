@@ -44,5 +44,6 @@ static NSString * const XCPlayerDuration=@"duration";
 static NSString * const XCPlayercoverSmall=@"coverSmall";
 static NSString * const XCPlayercoverLarge=@"coverLarge";
 static NSString * const XCPlayerplaytimes=@"playtimes";
+static NSString * const XCPlayercreatedAt=@"createdAt";
 
 #endif /* XCCommon_h */
