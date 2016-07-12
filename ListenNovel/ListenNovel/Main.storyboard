@@ -93,6 +93,7 @@
                                 <action selector="presentLeftMenuViewController:" destination="Wb4-rx-1xw" id="tLo-Ov-fvU"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="ofj-cj-y3n"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
@@ -132,7 +133,7 @@
         <!--contentViewController-->
         <scene sceneID="MyC-XB-8GS">
             <objects>
-                <navigationController storyboardIdentifier="contentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rhw-fh-gym" userLabel="contentViewController" customClass="NavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="contentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rhw-fh-gym" userLabel="contentViewController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="np2-SW-cBm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

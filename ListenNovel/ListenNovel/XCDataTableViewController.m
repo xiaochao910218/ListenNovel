@@ -7,17 +7,8 @@
 //
 
 #import "XCDataTableViewController.h"
-#import "RESideMenu.h"
-#import "XCMenuViewController.h"
-#import "AFNetworking.h"
 #import "XCCommon.h"
-#import "XCDataModel.h"
-#import "XCDataTableViewCell.h"
-#import "Masonry.h"
-#import "XCPlayListTableViewController.h"
-#import <SDCycleScrollView.h>
-#import "Masonry.h"
-#import "XCPlayerViewController.h"
+
 
 #define URL @"http://mobile.ximalaya.com/mobile/discovery/v1/category/album?calcDimension=hot&categoryId=3&device=android&pageSize=20&status=0&tagName=%E5%8D%9A%E9%9B%86%E5%A4%A9%E5%8D%B7"
 
@@ -32,6 +23,7 @@
 @property(nonatomic,strong)NSMutableArray *titleArr;
 @property(nonatomic,strong)NSMutableArray *urlArr;
 @property(nonatomic,strong) UIButton *footerBtn;
+@property (nonatomic)BOOL isRefresh;
 @end
 
 @implementation XCDataTableViewController
@@ -57,32 +49,62 @@ static NSString *xctitle=@"博集天卷";
     NSDictionary *parameters=@{@"page":@(_pageId)};
     [self.manager GET:_dataUrl parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [vc.refreshControl endRefreshing];
         NSDictionary *novelDict=(NSDictionary *)responseObject;
+        if (_isRefresh) {
+            [XCDataBaseTool updateStatementsSql:Delete_HOMELIST withParsmeters:nil block:^(BOOL isOk, NSString *errorMsg) {
+                if (isOk) {
+                    
+                }
+            }];
+        }
         NSArray *nArr=novelDict[XCList];
         for (NSDictionary *dict in nArr) {
-            XCDataModel *model=[XCDataModel novelModelWithDictionary:dict];
+            
+            NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithDictionary:dict];
+            NSArray *keyArr=@[@"albumId",@"intro",@"nickname",@"coverSmall",@"coverMiddle",@"coverLarge",@"title",@"tracks",@"playsCounts"];
+            NSArray *keys=[dict allKeys];
+            for (NSString *key in keys) {
+                if (![keyArr containsObject:key]) {
+                    [dic removeObjectForKey:key];
+                }
+            }
+            NSMutableDictionary *dictr=dic;
+            [XCDataBaseTool updateStatementsSql: INSERT_HOMELIST_SQL withParsmeters:dictr block:^(BOOL isOk, NSString *errorMsg) {
+                if (isOk) {
+                    
+                }
+            }];
+            
+            XCDataModel *model=[XCDataModel novelModelWithDictionary:dictr];
             [vc.novelArr addObject:model];
             [vc.imageUrlArr addObject:model.novelCoverLarge];
             [vc.titleArr addObject:model.novelTitle];
             [vc.urlArr addObject:model];
+            
         }
         [vc.imageUrlArr removeObjectsInRange:NSMakeRange(2, vc.imageUrlArr.count-3)];
         [vc.titleArr removeObjectsInRange:NSMakeRange(2, vc.titleArr.count-3)];
         [vc.urlArr removeObjectsInRange:NSMakeRange(2, vc.urlArr.count-3)];
         [vc.novelArr removeObjectsInRange:NSMakeRange(0, 3)];
         vc.dataArr =vc.novelArr;
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [vc.tableView reloadData];
         });
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        NSLog(@"--------%@-------",error);
     }];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getRequest];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _pageId=1;
+    _isRefresh=YES;
     if (!_novelArr) {
         _novelArr=[NSMutableArray array];
     }
@@ -98,7 +120,28 @@ static NSString *xctitle=@"博集天卷";
     if (!_dataArr) {
         _dataArr=[NSMutableArray array];
     }
-    [self getRequest];
+    
+    __weak XCDataTableViewController *dataVC=self;
+    
+    [XCDataBaseTool selectStatementsSql:SELECT_HOMELIST_ALL withParsmeters:nil forMode:nil block:^(NSMutableArray *resposeOjbc, NSString *errorMsg) {
+        if (resposeOjbc.count!=0) {
+            for (NSMutableDictionary *dDict in resposeOjbc) {
+                XCDataModel *md=[XCDataModel novelModelWithDictionary:dDict];
+                [dataVC.novelArr addObject:md];
+                [dataVC.imageUrlArr addObject:md.novelCoverLarge];
+                [dataVC.titleArr addObject:md.novelTitle];
+                [dataVC.urlArr addObject:md];
+            }
+            [dataVC.imageUrlArr removeObjectsInRange:NSMakeRange(2, dataVC.imageUrlArr.count-3)];
+            [dataVC.titleArr removeObjectsInRange:NSMakeRange(2, dataVC.titleArr.count-3)];
+            [dataVC.urlArr removeObjectsInRange:NSMakeRange(2, dataVC.urlArr.count-3)];
+            [dataVC.novelArr removeObjectsInRange:NSMakeRange(0, 3)];
+            dataVC.dataArr =dataVC.novelArr;
+            [dataVC.tableView reloadData];
+        }
+        
+    }];
+    
     [self initHeadView];
     UINib *nib=[UINib nibWithNibName:NSStringFromClass([XCDataTableViewCell class]) bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"datacell"];
@@ -107,9 +150,20 @@ static NSString *xctitle=@"博集天卷";
     self.tableView.rowHeight=125;
     self.tableView.showsVerticalScrollIndicator=NO;
     self.navigationController.navigationBar.translucent=NO;
-//    self.automaticallyAdjustsScrollViewInsets=NO;
-    
+    self.automaticallyAdjustsScrollViewInsets=NO;
     self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:0.792 green:0.761 blue:0.835 alpha:0.5];
+    [self addsubView];
+}
+-(void)refreshControlAction:(UIRefreshControl*)refresh{
+    //.下拉加载中
+    refresh.attributedTitle=[[NSAttributedString alloc] initWithString:@"下拉加载中..."];
+    //执行下拉刷新操作
+    [self getRequest];
+}
+//添加下拉刷新
+-(void)addsubView{
+    self.refreshControl=[[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)initHeadView{
@@ -133,7 +187,7 @@ static NSString *xctitle=@"博集天卷";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         _cycleView.imageURLStringsGroup = self.imageUrlArr;
     });
-
+    
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(8);
         make.left.mas_equalTo(0);
@@ -141,9 +195,9 @@ static NSString *xctitle=@"博集天卷";
         make.height.mas_equalTo(21);
         
     }];
-
+    
     self.tableView.tableHeaderView=view;
-   
+    
 }
 -(void)changeTextInfo:(NSNotification *)notifition
 {
@@ -152,11 +206,6 @@ static NSString *xctitle=@"博集天卷";
     xcu=list;
     NSString *title=dict[@"title"];
     xctitle=title;
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
     
 }
 
@@ -219,7 +268,7 @@ static NSString *xctitle=@"博集天卷";
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     XCDataModel *dataMod=self.urlArr[index];
-
+    
     XCPlayListTableViewController *play=[self.storyboard instantiateViewControllerWithIdentifier:@"playlist"];
     play.ablumn=dataMod.novelAlbumd;
     play.name=dataMod.novelTitle;
@@ -229,25 +278,24 @@ static NSString *xctitle=@"博集天卷";
     play.tracks=dataMod.novelTracks;
     play.intro=dataMod.novelIntro;
     [self.navigationController pushViewController:play animated:YES];
-    
 }
-
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 100)];
-    view.backgroundColor=[UIColor whiteColor];
-    view.alpha=0.8;
+    view.backgroundColor=[UIColor colorWithRed:0.5 green:0.4 blue:0.6 alpha:0.4];
     UIButton *btn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setBackgroundColor:[UIColor orangeColor]];
+//    [btn setBackgroundColor:[UIColor orangeColor]];
     [btn setTitle:@"Player" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(composeAction:) forControlEvents:UIControlEventTouchUpInside];
+    btn.backgroundColor=[UIColor colorWithRed:0.5 green:0.4 blue:0.6 alpha:0.4];
     btn.layer.cornerRadius=8;
     btn.layer.masksToBounds=YES;
     btn.titleLabel.font=[UIFont systemFontOfSize:16];
     [view addSubview:btn];
     
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(view);
+        make.centerY.equalTo(view);
+        make.right.mas_equalTo(-10);
         make.width.mas_equalTo(45);
         make.height.equalTo(view);
     }];

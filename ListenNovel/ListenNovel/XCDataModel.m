@@ -16,8 +16,8 @@
         _novelIntro=dict[XCintro];
         _novelplaysCounts=dict[XCplaysCounts];
         _novelCoverSmall=dict[XCcoverSmall];
-        _novelAlbumd=dict[XCAlbumId];
         _novelCoverMiddle=dict[XCcoverMiddle];
+        _novelAlbumd=dict[XCAlbumId];
         _novelCoverLarge=dict[XCcoverLarge];
         _novelNickname=dict[XCnickname];
         _novelTracks=dict[XCtracks];

@@ -39,6 +39,7 @@
 		4FB919031D2CDB010026BB19 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB918F81D2CDB010026BB19 /* ViewController+MASAdditions.m */; };
 		4FB919071D2CF0DF0026BB19 /* XCPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB919051D2CF0DF0026BB19 /* XCPlayerViewController.m */; };
 		4FB919081D2CF0DF0026BB19 /* XCPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FB919061D2CF0DF0026BB19 /* XCPlayerViewController.xib */; };
+		4FCBECCC1D3477C800F6EF33 /* XCDataBaseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBECCB1D3477C800F6EF33 /* XCDataBaseTool.m */; };
 		4FD56ED11D2DE65A000A5C28 /* XCPlayerViewController+methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD56ED01D2DE65A000A5C28 /* XCPlayerViewController+methods.m */; };
 		4FD56ED41D2DE80D000A5C28 /* XCRotatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD56ED31D2DE80D000A5C28 /* XCRotatingView.m */; };
 		4FD56EDB1D2DECE0000A5C28 /* NSString+time.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD56ED81D2DECE0000A5C28 /* NSString+time.m */; };
@@ -88,7 +89,6 @@
 /* Begin PBXFileReference section */
 		3AC6B7471DE4206B523F12A0 /* Pods-ListenNovelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenNovelTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListenNovelTests/Pods-ListenNovelTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4542821687F28BEAA6B315F1 /* libPods-ListenNovelTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ListenNovelTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F3ADA271D28BDE1002D7D45 /* XCCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCCommon.h; sourceTree = "<group>"; };
 		4F3ADA281D29067F002D7D45 /* XCDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDataModel.h; sourceTree = "<group>"; };
 		4F3ADA291D29067F002D7D45 /* XCDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDataModel.m; sourceTree = "<group>"; };
 		4F86842F1D2D413700D6D8D4 /* MusicPlayer_上一个@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MusicPlayer_上一个@2x.png"; sourceTree = "<group>"; };
@@ -137,6 +137,10 @@
 		4FB919041D2CF0DF0026BB19 /* XCPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPlayerViewController.h; sourceTree = "<group>"; };
 		4FB919051D2CF0DF0026BB19 /* XCPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCPlayerViewController.m; sourceTree = "<group>"; };
 		4FB919061D2CF0DF0026BB19 /* XCPlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCPlayerViewController.xib; sourceTree = "<group>"; };
+		4FCBECC91D3477C800F6EF33 /* DataBaseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseFile.h; sourceTree = "<group>"; };
+		4FCBECCA1D3477C800F6EF33 /* XCDataBaseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDataBaseTool.h; sourceTree = "<group>"; };
+		4FCBECCB1D3477C800F6EF33 /* XCDataBaseTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDataBaseTool.m; sourceTree = "<group>"; };
+		4FCBECCD1D3477F800F6EF33 /* XCCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCommon.h; sourceTree = "<group>"; };
 		4FD56ECF1D2DE65A000A5C28 /* XCPlayerViewController+methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCPlayerViewController+methods.h"; sourceTree = "<group>"; };
 		4FD56ED01D2DE65A000A5C28 /* XCPlayerViewController+methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCPlayerViewController+methods.m"; sourceTree = "<group>"; };
 		4FD56ED21D2DE80D000A5C28 /* XCRotatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCRotatingView.h; sourceTree = "<group>"; };
@@ -238,8 +242,9 @@
 		4F3ADA261D28BDCC002D7D45 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				4FCBECCD1D3477F800F6EF33 /* XCCommon.h */,
+				4FCBECC81D3477B500F6EF33 /* vendors */,
 				4FB918DE1D2CDB010026BB19 /* Masonry */,
-				4F3ADA271D28BDE1002D7D45 /* XCCommon.h */,
 			);
 			name = Others;
 			sourceTree = "<group>";
@@ -327,6 +332,16 @@
 				4FB918F81D2CDB010026BB19 /* ViewController+MASAdditions.m */,
 			);
 			path = Masonry;
+			sourceTree = "<group>";
+		};
+		4FCBECC81D3477B500F6EF33 /* vendors */ = {
+			isa = PBXGroup;
+			children = (
+				4FCBECC91D3477C800F6EF33 /* DataBaseFile.h */,
+				4FCBECCA1D3477C800F6EF33 /* XCDataBaseTool.h */,
+				4FCBECCB1D3477C800F6EF33 /* XCDataBaseTool.m */,
+			);
+			name = vendors;
 			sourceTree = "<group>";
 		};
 		4FD56ED61D2DECE0000A5C28 /* Tools */ = {
@@ -859,6 +874,7 @@
 				4FD56EDC1D2DECE0000A5C28 /* UIImage+ImageEffects.m in Sources */,
 				4FB918DB1D2CAAE00026BB19 /* XCListHeadView.m in Sources */,
 				4FD56ED11D2DE65A000A5C28 /* XCPlayerViewController+methods.m in Sources */,
+				4FCBECCC1D3477C800F6EF33 /* XCDataBaseTool.m in Sources */,
 				4FB919011D2CDB010026BB19 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

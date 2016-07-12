@@ -12,6 +12,8 @@
 #import "XCMenuModel.h"
 #import "XCMenuTableViewCell.h"
 #import "Masonry.h"
+#import "XCDataBaseTool.h"
+#import "DataBaseFile.h"
 
 #define WIDTH self.view.frame.size.width
 
@@ -82,7 +84,12 @@ static NSString *titleIndentifier =@"titleIndentifier";
     
     XCMenuModel *urlModel=self.titleArr[indexPath.row];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"send" object:nil userInfo:@{@"reUrl":urlModel.listurl,@"title":urlModel.title}];
-   
+     [XCDataBaseTool updateStatementsSql:Delete_HOMELIST withParsmeters:nil block:^(BOOL isOk, NSString *errorMsg) {
+        if (isOk) {
+            
+        }
+    }];
+
     [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"firstViewController"]]
                                                  animated:YES];
     [self.sideMenuViewController hideMenuViewController];

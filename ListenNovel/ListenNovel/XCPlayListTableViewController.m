@@ -38,7 +38,6 @@ static NSString *isAsc;
 -(void)getRequest{
     __weak XCPlayListTableViewController *vc=self;
     _url=[NSString stringWithFormat:@"http://mobile.ximalaya.com/mobile/v1/album/track?albumId=%@&pageId=%ld&isAsc=%@",self.ablumn,_pageId,isAsc];
-    
     NSDictionary *parameters=@{@"page":@(_pageId)};
        [self.manager GET:_url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -87,7 +86,7 @@ static NSString *isAsc;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 205;
+    return 220;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.5;
@@ -239,7 +238,7 @@ static NSString *isAsc;
         make.top.equalTo(intro);
         make.left.equalTo(intro.mas_right).with.offset(3);
         make.right.mas_equalTo(-8);
-        make.height.mas_lessThanOrEqualTo(105);
+        make.height.mas_lessThanOrEqualTo(120);
     }];
     return headView;
 }
@@ -275,9 +274,8 @@ static NSString *isAsc;
     cell.playerModel=model;
     return cell;
 }
--(UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath{
-    return 1;
-}
+
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
